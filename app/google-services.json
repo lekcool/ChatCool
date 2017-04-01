@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "423352089707",
+    "firebase_url": "https://chatproject-aa6bb.firebaseio.com",
+    "project_id": "chatproject-aa6bb",
+    "storage_bucket": "chatproject-aa6bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423352089707:android:67954e4657931d2e",
+        "android_client_info": {
+          "package_name": "com.pun.cool.chatcool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423352089707-ll54r41mn40joerffq86frb78en7ga4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pun.cool.chatcool",
+            "certificate_hash": "303da944ae262079edf8935aacd6e9c6b05a7b1a"
+          }
+        },
+        {
+          "client_id": "423352089707-h3tec7t4feavh4go3a3l8fmv52iccp12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjNiKo68zfdOAz8_vi9z2x8bQyqLOHSFg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423352089707-h3tec7t4feavh4go3a3l8fmv52iccp12.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
