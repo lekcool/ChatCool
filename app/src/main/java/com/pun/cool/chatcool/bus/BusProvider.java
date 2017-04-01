@@ -17,6 +17,6 @@ public final class BusProvider {
     }
 
     private BusProvider() {
-        // No instances.
+
     }
 }
