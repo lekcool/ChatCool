@@ -31,9 +31,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-    @BindView(R.id.nameView)
-    EditText nameView;
-
     @BindView(R.id.emailView)
     EditText emailView;
 
@@ -112,12 +109,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return true;
         }
 
-        if (TextUtils.isEmpty(nameView.getText())) {
-            nameView.setError("null");
-            nameView.requestFocus();
-            return true;
-        }
-
         return false;
     }
 
@@ -135,24 +126,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
                         if (!task.isSuccessful()) {
-                            hideProgress();
                             Toast.makeText(getApplicationContext(), R.string.auth_failed, Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        FirebaseUser user = task.getResult().getUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(nameView.getText().toString())
-                                .build();
-
-                        Task<Void> updateTask = user.updateProfile(profileUpdates);
-                        if (updateTask.isSuccessful()) {
-                            hideProgress();
-                            goToMain();
-                        } else {
-                            hideProgress();
-                            Toast.makeText(getApplicationContext(), R.string.auth_name_failed, Toast.LENGTH_SHORT).show();
-                        }
+                        hideProgress();
+                        goToMain();
                     }
                 });
     }

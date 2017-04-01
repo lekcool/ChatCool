@@ -14,18 +14,27 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pun.cool.chatcool.common.App;
 import com.pun.cool.chatcool.R;
 import com.pun.cool.chatcool.config.Config;
 import com.pun.cool.chatcool.realm.RealmManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
@@ -33,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Cool on 14/3/2560.
@@ -40,6 +50,8 @@ import java.util.List;
 
 public class NotificationUtils {
     private static String TAG = NotificationUtils.class.getSimpleName();
+
+    private static final String AUTH_KEY = "key=AIzaSyCUVJM5ALYde0T395rtmi_NCV9Q26QdHVI";
 
     private Context mContext;
 
@@ -215,6 +227,79 @@ public class NotificationUtils {
 
         return isInBackground;
     }
+
+
+    public static void pushNotification(String type, String userId, String userName, String chatRoomId, String message) {
+        JSONObject jPayload = new JSONObject();
+        JSONObject jNotification = new JSONObject();
+        JSONObject jData = new JSONObject();
+        try {
+            jNotification.put("title", "Google I/O 2016");
+            jNotification.put("body", "Firebase Cloud Messaging (App)");
+            jNotification.put("sound", "default");
+            jNotification.put("badge", "1");
+            jNotification.put("click_action", "OPEN_ACTIVITY_1");
+
+            //jData.put("picture_url", "http://opsbug.com/static/google-io.jpg");
+            jData.put("id", "123456");
+            jData.put("user_id", userId);
+            jData.put("user_name", userName);
+            jData.put("chat_room_id", chatRoomId);
+            jData.put("message", message);
+
+            switch (type) {
+                case "tokens":
+                    JSONArray ja = new JSONArray();
+                    ja.put("c5pBXXsuCN0:APA91bH8nLMt084KpzMrmSWRS2SnKZudyNjtFVxLRG7VFEFk_RgOm-Q5EQr_oOcLbVcCjFH6vIXIyWhST1jdhR8WMatujccY5uy1TE0hkppW_TSnSBiUsH_tRReutEgsmIMmq8fexTmL");
+                    ja.put(FirebaseInstanceId.getInstance().getToken());
+                    jPayload.put("registration_ids", ja);
+                    break;
+                case "topic":
+                    jPayload.put("to", "/topics/" + chatRoomId);
+                    break;
+                case "condition":
+                    jPayload.put("condition", "'sport' in topics || 'news' in topics");
+                    break;
+                default:
+                    jPayload.put("to", FirebaseInstanceId.getInstance().getToken());
+            }
+
+            jPayload.put("priority", "high");
+            jPayload.put("notification", jNotification);
+            jPayload.put("data", jData);
+
+            URL url = new URL("https://fcm.googleapis.com/fcm/send");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", AUTH_KEY);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // Send FCM message content.
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(jPayload.toString().getBytes());
+
+            // Read FCM response.
+            InputStream inputStream = conn.getInputStream();
+            final String resp = convertStreamToString(inputStream);
+
+            Handler h = new Handler(Looper.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "pushNotification: " + resp);
+                }
+            });
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String convertStreamToString(InputStream is) {
+        Scanner s = new Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next().replace(",", ",\n") : "";
+    }
+
 
     // Clears notification tray messages
     public static void clearNotifications() {

@@ -19,9 +19,11 @@
     <string name="text_login">Login</string>
     <string name="auth_failed">Auth Failed</string>
     <string name="register">Register</string>
+    <string name="update">Update</string>
     <string name="password_confirm">Password Confirm</string>
     <string name="name">Name</string>
     <string name="logout">Logout</string>
     <string name="auth_name_failed">User set name failed</string>
     <string name="chat_send_message">Send</string>
+    <string name="change_name">Change Name</string>
 </resources>

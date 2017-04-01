@@ -28,12 +28,13 @@ public class Utils {
     }
 
     @SuppressLint("SimpleDateFormat")
-    public static String getTimeStamp(String dateStr) {
+    public String getTimeStamp(String dateStr) {
          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timestamp = "";
 
-        today = today.length() < 2 ? "0" + today : today;
-
+        if (today != null) {
+            today = today.length() < 2 ? "0" + today : today;
+        }
         try {
             Date date = format.parse(dateStr);
             SimpleDateFormat todayFormat = new SimpleDateFormat("dd");
@@ -42,11 +43,14 @@ public class Utils {
             timestamp = format.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return timestamp;
     }
 
+    @SuppressLint("SimpleDateFormat")
     public static String getTimeStamp(Long dateLong) {
         SimpleDateFormat format;
         String timestamp = "";

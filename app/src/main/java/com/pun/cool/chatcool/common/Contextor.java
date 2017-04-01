@@ -1,17 +1,17 @@
 package com.pun.cool.chatcool.common;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
-/**
- * Created by Cool on 14/3/2560.
- */
+class Contextor {
 
-public class Contextor {
-    private static final Contextor ourInstance = new Contextor();
+    @SuppressLint("StaticFieldLeak")
+    private static Contextor ourInstance;
 
     private Context context;
 
     public static Contextor getInstance() {
+        if (ourInstance == null) ourInstance = new Contextor();
         return ourInstance;
     }
 
@@ -19,7 +19,7 @@ public class Contextor {
     private Contextor() {
     }
 
-    public void init(Context context) {
+    void init(Context context) {
         this.context = context;
     }
 

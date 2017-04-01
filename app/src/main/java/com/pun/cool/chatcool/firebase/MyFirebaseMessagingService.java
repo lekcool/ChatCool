@@ -67,6 +67,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Message message = new Message();
         message.setId(data.get("id"));
         message.setUserId(data.get("user_id"));
+        message.setUsername(data.get("user_name"));
         message.setChatRoomId(data.get("chat_room_id"));
         message.setMessage(data.get("message"));
         BusProvider.getInstance().post(message);

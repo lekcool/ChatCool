@@ -14,12 +14,12 @@ public class User {
     String name;
     String email;
     String token;
-    long createdAt;
+    String createdAt;
 
     public User() {
     }
 
-    public User(String id, String name, String email, String token, long createdAt) {
+    public User(String id, String name, String email, String token, String createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -59,11 +59,11 @@ public class User {
         this.token = token;
     }
 
-    public long getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

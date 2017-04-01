@@ -20,7 +20,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_OTHER = 0;
     private static final int TYPE_ME = 1;
 
-    private ArrayList<Message> list;
+    private List<Message> list;
     private String userId;
 
     public ChatAdapter(String userId) {
@@ -28,7 +28,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         list = new ArrayList<>();
     }
 
-    public void setList(ArrayList<Message> list) {
+    public void setList(List<Message> list) {
         this.list = list;
     }
 

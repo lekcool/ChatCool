@@ -29,6 +29,7 @@ import com.pun.cool.chatcool.realm.RealmManager;
 import com.pun.cool.chatcool.utils.NotificationUtils;
 import com.pun.cool.chatcool.view.chat.ChatActivity;
 import com.pun.cool.chatcool.view.login.LoginActivity;
+import com.pun.cool.chatcool.view.register.ProfileNameActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,11 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerListene
             String name = user.getDisplayName();
             String email = user.getEmail();
 
-            userView.setText(email);
+            if (name == null || name.isEmpty()) {
+                goToChangeName();
+            }
+
+            userView.setText(email + " || " + name);
 
             String uid = user.getUid();
         }
@@ -119,6 +124,11 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerListene
         NotificationUtils.clearNotifications();
     }
 
+    private void goToChangeName() {
+        startActivity(new Intent(this, ProfileNameActivity.class));
+        finish();
+    }
+
     private void signOut() {
         RealmManager.getInstance().clear();
         FirebaseAuth.getInstance().signOut();
@@ -136,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerListene
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_profile_name:
+                goToChangeName();
+                return true;
             case R.id.menu_logout:
                 signOut();
                 return true;
@@ -149,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerListene
         ChatRoom chatRoom = mAdapter.getItem(position);
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra("chat_room_id", chatRoom.getId());
-        intent.putExtra("name", chatRoom.getName());
+        intent.putExtra("chat_room_name", chatRoom.getName());
         startActivity(intent);
     }
 }

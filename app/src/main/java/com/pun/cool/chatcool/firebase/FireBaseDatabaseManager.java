@@ -70,7 +70,7 @@ public class FireBaseDatabaseManager {
             return;
         }
 
-        User user = new User(firebaseUser.getUid(), name, email, null, getCreatedTimestamp(ServerValue.TIMESTAMP));
+        User user = new User(firebaseUser.getUid(), name, email, null, null);
         getUserRef().child(firebaseUser.getUid()).setValue(user);
     }
 
@@ -88,18 +88,30 @@ public class FireBaseDatabaseManager {
     }
 
 
-    public void addMessage(String chatRoomId, String userId, String msg, OnSuccessListener<Void> listener) {
-        String id = getMessageRef().push().getKey();
-        Message message = new Message(id, chatRoomId, userId, msg, getCreatedTimestamp(ServerValue.TIMESTAMP));
-        getMessageRef().child(message.getId()).setValue(message).addOnSuccessListener(listener);
+    public void addMessage(String chatRoomId, String userId, String username, String msg, OnSuccessListener<Void> listener) {
+        String id = getMessageRef().child(chatRoomId).push().getKey();
+        Message message = new Message(id, chatRoomId, userId, username, msg, null);
+        getMessageRef().child(chatRoomId).push().setValue(message).addOnSuccessListener(listener);
     }
 
     public void getMessageChatRoom(String chatRoomId, final ValueEventListener listener) {
         getMessageRef().child(chatRoomId).addListenerForSingleValueEvent(listener);
     }
 
+    public List<Message> getArrayMessage(DataSnapshot dataSnapshot) {
+//        GenericTypeIndicator< ArrayList<ChatRoom>> t =new GenericTypeIndicator<ArrayList<ChatRoom>>() {};
+
+        List<Message> messageList = new ArrayList<>(); //dataSnapshot.getValue(t);
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            Message chatRoom = snapshot.getValue(Message.class);
+            messageList.add(chatRoom);
+        }
+
+        return messageList;
+    }
+
     public void addChatRoom(String name) {
-        ChatRoom chatRoom = new ChatRoom(getChatRoomRef().push().getKey(), name, getCreatedTimestamp(ServerValue.TIMESTAMP));
+        ChatRoom chatRoom = new ChatRoom(getChatRoomRef().push().getKey(), name, null);
         getChatRoomRef().child(chatRoom.getId()).setValue(chatRoom);
     }
 
@@ -112,28 +124,14 @@ public class FireBaseDatabaseManager {
     }
 
     public List<ChatRoom> getArrayChatRoom(DataSnapshot dataSnapshot) {
-//        GenericTypeIndicator< ArrayList<ChatRoom>> t =new GenericTypeIndicator<ArrayList<ChatRoom>>() {};
-
-        List<ChatRoom> chatRoomList = new ArrayList<>(); //dataSnapshot.getValue(t);
+        List<ChatRoom> chatRoomList = new ArrayList<>();
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             ChatRoom chatRoom = snapshot.getValue(ChatRoom.class);
             chatRoomList.add(chatRoom);
 
-//            Log.e(TAG, "subscribeToTopic: "+ chatRoom.getId());
-//            FirebaseMessaging.getInstance().subscribeToTopic(chatRoom.getId());
-
-            Log.e(TAG, "subscribeToTopic: "+ chatRoom.getName().replace(" ", ""));
-            FirebaseMessaging.getInstance().subscribeToTopic(chatRoom.getName().replace(" ", ""));
+            FirebaseMessaging.getInstance().subscribeToTopic(chatRoom.getId().replace(" ", ""));
         }
 
         return chatRoomList;
-    }
-
-    private Long getCreatedTimestamp(Object created) {
-        if (created instanceof Long) {
-            return (Long) created;
-        }
-
-        return null;
     }
 }

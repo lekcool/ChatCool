@@ -45,7 +45,7 @@ class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 //            tvCount.setVisibility(View.GONE);
 //        }
 
-        tvTimestamp.setText(Utils.getTimeStamp(chatRoom.getCreatedAt()));
+        tvTimestamp.setText(Utils.getInstance().getTimeStamp(chatRoom.getCreatedAt()));
     }
 
     @Override

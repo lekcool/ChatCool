@@ -2,20 +2,16 @@ package com.pun.cool.chatcool.firebase.model;
 
 import io.realm.RealmObject;
 
-/**
- * Created by Cool on 13/3/2560.
- */
-
 public class ChatRoom {
 
-    String id;
-    String name;
-    Long createdAt;
+    private String id;
+    private String name;
+    private String createdAt;
 
     public ChatRoom() {
     }
 
-    public ChatRoom(String id, String name, Long createdAt) {
+    public ChatRoom(String id, String name, String createdAt) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -37,11 +33,11 @@ public class ChatRoom {
         this.name = name;
     }
 
-    public Long getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Long createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

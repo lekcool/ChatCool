@@ -26,9 +26,8 @@ public class App extends Application {
     }
 
     private void initRealm() {
-        Realm.init(this);
-        RealmConfiguration configuration = new RealmConfiguration.Builder()
-                .build();
+        Realm.init(Contextor.getInstance().getContext());
+        RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(configuration);
     }
 }

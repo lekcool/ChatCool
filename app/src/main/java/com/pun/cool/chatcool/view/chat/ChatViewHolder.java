@@ -38,7 +38,7 @@ class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         //
         //messageView.setVisibility(View.GONE);
         messageImageView.setVisibility(View.GONE);
-        nameView.setText("LEK");
+        nameView.setText(message.getUsername());
         messageView.setText(message.getMessage());
     }
 
