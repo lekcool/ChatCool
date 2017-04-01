@@ -5,25 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pun.cool.chatcool.OnRecyclerListener;
+import com.pun.cool.chatcool.common.OnRecyclerListener;
 import com.pun.cool.chatcool.R;
 import com.pun.cool.chatcool.firebase.model.ChatRoom;
-import com.pun.cool.chatcool.model.Message;
-import com.pun.cool.chatcool.view.chat.ChatViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Cool on 14/3/2560.
- */
-
-public class RoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class RoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ChatRoom> arrayList;
     private OnRecyclerListener listener;
 
-    public RoomAdapter(ArrayList<ChatRoom> arrayList, OnRecyclerListener listener) {
+    RoomAdapter(ArrayList<ChatRoom> arrayList, OnRecyclerListener listener) {
         this.arrayList = arrayList;
         this.listener = listener;
     }
@@ -40,11 +34,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         viewHolder.setupData(getItem(position));
     }
 
-    public ChatRoom getItem(int position) {
+    ChatRoom getItem(int position) {
         return arrayList.get(position);
     }
 
-    public void setArrayList(List<ChatRoom> arrayList) {
+    void setArrayList(List<ChatRoom> arrayList) {
         this.arrayList = arrayList;
     }
 

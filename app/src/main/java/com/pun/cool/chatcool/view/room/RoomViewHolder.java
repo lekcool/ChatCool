@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.pun.cool.chatcool.OnRecyclerListener;
+import com.pun.cool.chatcool.common.OnRecyclerListener;
 import com.pun.cool.chatcool.R;
 import com.pun.cool.chatcool.firebase.model.ChatRoom;
 import com.pun.cool.chatcool.utils.Utils;
@@ -12,11 +12,7 @@ import com.pun.cool.chatcool.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Cool on 16/3/2560.
- */
-
-public class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     @BindView(R.id.tvName)
     TextView tvName;
@@ -32,14 +28,14 @@ public class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     private OnRecyclerListener listener;
 
-    public RoomViewHolder(View itemView, OnRecyclerListener listener) {
+    RoomViewHolder(View itemView, OnRecyclerListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
         this.listener = listener;
     }
 
-    public void setupData(ChatRoom chatRoom) {
+    void setupData(ChatRoom chatRoom) {
         tvName.setText(chatRoom.getName());
 //        tvMessage.setText(chatRoom.getLastMessage());
 //        if (chatRoom.getUnreadCount() > 0) {

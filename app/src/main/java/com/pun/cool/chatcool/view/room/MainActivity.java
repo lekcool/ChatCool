@@ -1,8 +1,9 @@
 package com.pun.cool.chatcool.view.room;
 
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,17 +21,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.pun.cool.chatcool.OnRecyclerListener;
-import com.pun.cool.chatcool.bus.BusProvider;
+import com.pun.cool.chatcool.R;
+import com.pun.cool.chatcool.common.OnRecyclerListener;
 import com.pun.cool.chatcool.firebase.FireBaseDatabaseManager;
 import com.pun.cool.chatcool.firebase.model.ChatRoom;
-import com.pun.cool.chatcool.firebase.model.Message;
 import com.pun.cool.chatcool.realm.RealmManager;
 import com.pun.cool.chatcool.utils.NotificationUtils;
 import com.pun.cool.chatcool.view.chat.ChatActivity;
 import com.pun.cool.chatcool.view.login.LoginActivity;
-import com.pun.cool.chatcool.R;
 
 import java.util.ArrayList;
 import java.util.List;

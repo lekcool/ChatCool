@@ -1,5 +1,6 @@
 package com.pun.cool.chatcool.view.chat;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,11 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by Cool on 14/3/2560.
- */
-
-public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     @BindView(R.id.profileImageView)
     CircleImageView profileImageView;
@@ -30,13 +27,15 @@ public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @BindView(R.id.messageImageView)
     ImageView messageImageView;
 
-    public ChatViewHolder(View itemView) {
+    ChatViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
     }
 
-    public void setupData(Message message) {
+    @SuppressLint("SetTextI18n")
+    void setupData(Message message) {
+        //
         //messageView.setVisibility(View.GONE);
         messageImageView.setVisibility(View.GONE);
         nameView.setText("LEK");
